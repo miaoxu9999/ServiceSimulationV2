@@ -35,7 +35,7 @@ import serviceSimulationV2.UserGenerator.RandomUserGenerator;
 /** 
 * @author MiaoXu E-mail: 
 * @version 创建时间：2018年3月26日 下午8:25:10 
-* 类说明  用来
+* 类说明  Service Builder 用来构建
 */
 public class ServiceBuilder implements ContextBuilder<Object>{
 
