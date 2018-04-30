@@ -1,15 +1,14 @@
-package serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.ReliabilityStragety;
+package serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.SenseStragety;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import serviceSimulationV2.Stragety.Stragety;
 
-public class FixedReliabilityStragety implements ReliabilityStragety, Stragety<Integer>{
+public class FixedSenseStragety implements SenseStragety, Stragety<Integer>{
 	int FixedValue;
 	
-	public FixedReliabilityStragety(int fixedValue) {
+	public FixedSenseStragety(int fixedValue) {
 		super();
 		FixedValue = fixedValue;
 	}
@@ -31,9 +30,9 @@ public class FixedReliabilityStragety implements ReliabilityStragety, Stragety<I
 	@Override
 	public Integer[] getStragetyValueArray(int size) {
 		// TODO Auto-generated method stub
-		Integer[] reliablityArray = new Integer[size];
-		Arrays.fill(reliablityArray, FixedValue);
-		return reliablityArray;
+		Integer[] senseArray = new Integer[size];
+		Arrays.fill(senseArray, FixedValue);
+		return senseArray;
 	}
 
 }
