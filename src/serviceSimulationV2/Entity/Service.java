@@ -34,6 +34,32 @@ public class Service {
 	
 	//用户给出的reputation List
 	private List<Double> reputationList;
+	
+	//可靠性
+	private int reliablity;
+	
+	//感观
+	private int sense;
+	
+	//移植性
+	private int transform_ability;
+	
+	//响应性
+	private int response;
+	
+	public Service(Tag tag, double reputation, double birthTime, int numberUsed, Resource resource,
+			ContinuousSpace<Object> space, Grid<Object> grid, List<Double> reputationList, int reliablity, int sense,
+			int transform_ability, int response) {
+		this(birthTime, space,
+			 grid,  tag,  reputation, resource);
+		
+		this.reliablity = reliablity;
+		this.sense = sense;
+		this.transform_ability = transform_ability;
+		this.response = response;
+	}
+
+	//
 
 	public Service(  double birthTime, ContinuousSpace<Object> space,
 			Grid<Object> grid, Tag tag, double reputation,Resource resource) {
