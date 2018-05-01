@@ -12,6 +12,13 @@ public class CurrentServicePropertyManager {
 	private static Stragety resourceStragety;
 	private static Stragety usedNumberStragety;
 	private static Stragety tagStragety;
+	
+	//添加四个Service属性
+	private static Stragety reliablityStragety;
+	private static Stragety senseStragety;
+	private static Stragety responseStragety;
+	private static Stragety transform_abilityStragety;
+	
 	public static Stragety getReputationStragety() {
 		return reputationStragety;
 	}
@@ -45,6 +52,32 @@ public class CurrentServicePropertyManager {
 		
 		return res;
 		
+	}
+	
+	
+	public static Stragety getReliablityStragety() {
+		return reliablityStragety;
+	}
+	public static void setReliablityStragety(Stragety reliablityStragety) {
+		CurrentServicePropertyManager.reliablityStragety = reliablityStragety;
+	}
+	public static Stragety getSenseStragety() {
+		return senseStragety;
+	}
+	public static void setSenseStragety(Stragety senseStragety) {
+		CurrentServicePropertyManager.senseStragety = senseStragety;
+	}
+	public static Stragety getResponseStragety() {
+		return responseStragety;
+	}
+	public static void setResponseStragety(Stragety responseStragety) {
+		CurrentServicePropertyManager.responseStragety = responseStragety;
+	}
+	public static Stragety getTransform_abilityStragety() {
+		return transform_abilityStragety;
+	}
+	public static void setTransform_abilityStragety(Stragety transform_abilityStragety) {
+		CurrentServicePropertyManager.transform_abilityStragety = transform_abilityStragety;
 	}
 	
 	

@@ -47,6 +47,7 @@ public class ServiceMoveMent {
 		{
 			Tag tag = entry.getKey();
 			int num = entry.getValue();
+			System.out.println("num 的数量是" + num);
 			for (int i = 0; i < num; i++) {
 				Service s = serviceGenerator.next();
 				context.add(s);
@@ -60,9 +61,13 @@ public class ServiceMoveMent {
 	 */
 	@ScheduledMethod(start = 6, interval = 50, priority = 3)
 	public void MoveOut() {
-		int randomnum = RandomHelper.nextIntFromTo(1, 120);
-		List<Service> services = CurrentServiceManager.getMoveOutStragety().getStragetyValueList(randomnum);
+		
+		//此处传递的参数没有用到
+		List<Service> services = CurrentServiceManager.getMoveOutStragety().getStragetyValueList(-1);
 		Context<Object> context = CurrentContext.getCurrentContext();
+		if (services  == null) {
+			return;
+		}
 		for(Service s: services)
 		{
 			context.remove(s);

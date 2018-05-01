@@ -9,7 +9,7 @@ import java.util.List;
 */
 public interface Stragety<T> {
 	T getStragetyValue();
-	List<T> getStragetyValueList(int size);
+	List<T> getStragetyValueList(int size );
 	T[] getStragetyValueArray(int size);
 }
  

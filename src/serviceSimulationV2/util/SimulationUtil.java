@@ -22,6 +22,9 @@ public  class SimulationUtil{
      * @return
      */
     public static<T> List<T> getRandomClass(int num,List<T> services){
+    	if (num == 0) {
+			return null;
+		}
         if(num<0 || services.size() < 1){
             throw new MyException(ResultEnum.SERVICENUMBERUNCORRECT);
         }

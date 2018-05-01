@@ -83,17 +83,17 @@ public class RandomServiceChooseStragety extends ServiceChooseStragety{
 		HashMap<Tag, Integer> tagCount = demand.getTagCount();
 //		HashMap<Tag, Integer> tagCount = getTagCount();
 		HashMap<Tag, List<Service>> taglists = new HashMap<>();
-		System.out.println(tagCount.keySet());
+//		System.out.println(tagCount.keySet());
 		for(Service s: services)
 		{
 			Tag tag = s.getTag();
-			System.out.println(tagCount.containsKey(tag));
+//			System.out.println(tagCount.containsKey(tag));
 			
 			if (tagCount.containsKey(tag) ) {
 				if (!taglists.containsKey(tag)) {
 					ArrayList<Service> list = new ArrayList<>();
 					list.add(s);
-					System.out.println(s);
+//					System.out.println(s);
 					taglists.put(tag, list);
 				}
 				else

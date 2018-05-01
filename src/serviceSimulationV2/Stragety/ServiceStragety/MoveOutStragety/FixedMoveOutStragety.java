@@ -8,12 +8,14 @@ import serviceSimulationV2.Responsitorry.ServiceResponsitory;
 import serviceSimulationV2.Stragety.Stragety;
 import serviceSimulationV2.util.SimulationUtil;
 
-/** 
-* @author MiaoXu E-mail: 
-* @version 创建时间：2018年3月29日 下午3:59:15 
-* 类说明 
-*/
-public class RandomMoveOutStragety implements MoveOutStragety, Stragety<Service>{
+public class FixedMoveOutStragety implements MoveOutStragety, Stragety<Service>{
+	int fixedValue;
+	
+	public FixedMoveOutStragety(int fixedValue) {
+		super();
+		
+		this.fixedValue = fixedValue;
+	}
 
 	@Override
 	public Service getStragetyValue() {
@@ -29,9 +31,9 @@ public class RandomMoveOutStragety implements MoveOutStragety, Stragety<Service>
 		// TODO Auto-generated method stub
 		List<Service> services = ServiceResponsitory.getList();
 		int sizeOfList = services.size();
-		int num = RandomHelper.nextIntFromTo(1, Math.min(sizeOfList, sizeOfList - 1));
-		List<Service> result = SimulationUtil.getRandomClass(num, services);
+		List<Service> result = SimulationUtil.getRandomClass(fixedValue, services);
 		return result;
+		
 	}
 
 	@Override
@@ -40,6 +42,4 @@ public class RandomMoveOutStragety implements MoveOutStragety, Stragety<Service>
 		return null;
 	}
 
-
 }
- 

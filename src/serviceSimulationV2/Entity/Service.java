@@ -47,8 +47,8 @@ public class Service {
 	//œÏ”¶–‘
 	private int response;
 	
-	public Service(Tag tag, double reputation, double birthTime, int numberUsed, Resource resource,
-			ContinuousSpace<Object> space, Grid<Object> grid, List<Double> reputationList, int reliablity, int sense,
+	public Service(double birthTime, ContinuousSpace<Object> space,
+			Grid<Object> grid, Tag tag, double reputation,Resource resource, int reliablity, int sense,
 			int transform_ability, int response) {
 		this(birthTime, space,
 			 grid,  tag,  reputation, resource);

@@ -33,7 +33,16 @@ public class User {
 	//Agent所处的空间，网格位置
 	private ContinuousSpace<Object> space;
 	private Grid<Object> grid;
-	public User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid) {
+	
+	Principle principle;
+	
+	
+	public User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid, Principle principle) {
+		this(demand,chooseStragety, space, grid);
+		this.principle = principle;
+	}
+
+	private User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid) {
 		super();
 		this.demand = demand;
 		this.chooseStragety = chooseStragety;
