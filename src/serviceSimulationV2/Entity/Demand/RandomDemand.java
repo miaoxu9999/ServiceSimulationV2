@@ -22,15 +22,12 @@ public class RandomDemand extends Demand{
 	HashMap<Tag, Integer> tagCount;
 	public RandomDemand() {
 		super();
-		
-		
 		// TODO Auto-generated constructor stub
 		tagCount = new HashMap<Tag, Integer>();
 		
 		List<Tag> list = TagResponsitory.getTags();
 		int num = RandomHelper.nextIntFromTo(1, list.size() - 1);
 		List<Tag>l = SimulationUtil.getRandomClass(num, list);
-		Print.print(num + "    "+ list.size());
 //		tagCount = MapData.map(list, 1);
 		tagCount = setTagCount(list);
 		
