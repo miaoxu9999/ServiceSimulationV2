@@ -1,6 +1,8 @@
 package serviceSimulationV2.Manager;
 
+import repast.simphony.relogo.ide.code.NetLogoRGWParser.stat_return;
 import serviceSimulationV2.Entity.User;
+import serviceSimulationV2.Stragety.Stragety;
 import serviceSimulationV2.Stragety.DemandStragety.DemandStragety;
 import serviceSimulationV2.Stragety.UserStragety.MoveInStragety.UserMoveInStragety;
 import serviceSimulationV2.util.Generator;
@@ -14,6 +16,7 @@ public class CurrentUserManager {
 	private static UserMoveInStragety userMoveInStragety;
 	private static Generator<User> usergenerator;
 	private static DemandStragety demandStragety;
+	private static Stragety principleStragety;
 	public static UserMoveInStragety getUserMoveInStragety() {
 		return userMoveInStragety;
 	}
@@ -32,6 +35,15 @@ public class CurrentUserManager {
 	public static void setDemandStragety(DemandStragety demandStragety) {
 		CurrentUserManager.demandStragety = demandStragety;
 	}
+	
+	public static Stragety getPrincipleStragety() {
+		return principleStragety;
+	}
+	public static void setPrincipleStragety(Stragety principleStragety) {
+		CurrentUserManager.principleStragety = principleStragety;
+	}
+	
+	
 	
 	
 }

@@ -23,13 +23,20 @@ import serviceSimulationV2.MoveMent.ServiceMoveMent;
 import serviceSimulationV2.MoveMent.UserMoveMent;
 import serviceSimulationV2.ServiceGenerator.RandomServiceGenerator;
 import serviceSimulationV2.Stragety.DemandStragety.RandomDemandStragety;
+import serviceSimulationV2.Stragety.ServiceStragety.MoveInStragety.PossionServiceMoveInStragety;
 import serviceSimulationV2.Stragety.ServiceStragety.MoveInStragety.RandomServiceMoveInStragety;
+import serviceSimulationV2.Stragety.ServiceStragety.MoveOutStragety.FixedMoveOutStragety;
 import serviceSimulationV2.Stragety.ServiceStragety.MoveOutStragety.RandomMoveOutStragety;
+import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.ReliabilityStragety.FixedReliabilityStragety;
 import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.ReputationStragety.RandomReputationStragety;
 import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.ResourceStragety.RandomResourceStragety;
+import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.ResponseStragety.FixedResponseStragety;
+import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.SenseStragety.FixedSenseStragety;
 import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.TagStragety.RandomTagStragety;
+import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.Transform_ability.FixedTransform_abilityStragety;
 import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.UsedNumberStragety.FixedUsedNumberStragety;
 import serviceSimulationV2.Stragety.UserStragety.MoveInStragety.RandomUserMoveInStragety;
+import serviceSimulationV2.Stragety.UserStragety.PrincipleStragety.FixedPrincipleStragety;
 import serviceSimulationV2.UserGenerator.RandomUserGenerator;
 
 /** 
@@ -90,10 +97,10 @@ public class ServiceBuilder implements ContextBuilder<Object>{
 	 * 设置CurrentServiceManager属性的值
 	 */
 	public void  setCurrentServiceManagerProperty() {
-		CurrentServiceManager.setMoveInStragety(new RandomServiceMoveInStragety());
+		CurrentServiceManager.setMoveInStragety(new PossionServiceMoveInStragety());
 		CurrentServiceManager.setServiceGenerator(new RandomServiceGenerator());
 		CurrentServicePropertyManager.setReputationStragety(new RandomReputationStragety());
-		CurrentServiceManager.setMoveOutStragety(new RandomMoveOutStragety());
+		CurrentServiceManager.setMoveOutStragety(new FixedMoveOutStragety(0));
 	}
 	
 	/**
@@ -103,12 +110,18 @@ public class ServiceBuilder implements ContextBuilder<Object>{
 		CurrentServicePropertyManager.setTagStragety(new RandomTagStragety());
 		CurrentServicePropertyManager.setUsedNumberStragety(new FixedUsedNumberStragety());
 		CurrentServicePropertyManager.setResourceStragety(new RandomResourceStragety());
+		
+		CurrentServicePropertyManager.setReliablityStragety(new FixedReliabilityStragety(8));
+		CurrentServicePropertyManager.setSenseStragety(new FixedSenseStragety(8));
+		CurrentServicePropertyManager.setTransform_abilityStragety(new FixedTransform_abilityStragety(8));
+		CurrentServicePropertyManager.setResponseStragety(new FixedResponseStragety(8));
 	}
 	
 	public void  setCurrentUserManagerProperty() {
 		CurrentUserManager.setDemandStragety(new RandomDemandStragety());
 		CurrentUserManager.setUsergenerator(new RandomUserGenerator());
 		CurrentUserManager.setUserMoveInStragety(new RandomUserMoveInStragety());
+		CurrentUserManager.setPrincipleStragety(new FixedPrincipleStragety());
 	}
 
 }

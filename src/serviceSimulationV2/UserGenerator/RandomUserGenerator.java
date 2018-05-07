@@ -1,7 +1,7 @@
 package serviceSimulationV2.UserGenerator;
 
-import bibliothek.gui.dock.station.stack.tab.layouting.Size.Type;
 import repast.simphony.random.RandomHelper;
+import serviceSimulationV2.Entity.Principle;
 import serviceSimulationV2.Entity.User;
 import serviceSimulationV2.Manager.CurrentContext;
 import serviceSimulationV2.Manager.CurrentUserManager;
@@ -26,9 +26,10 @@ public class RandomUserGenerator implements Generator<User>{
 		//»ñµÃUserµÄServiceChooseStragety
 		User user = null;
 		try {
-			user = new User(demandStragety.getStragetyValue(), (ServiceChooseStragety) type[0].newInstance(), CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid());
+			user = new User(demandStragety.getStragetyValue(), (ServiceChooseStragety) type[0].newInstance(), CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid(),
+					(Principle)CurrentUserManager.getPrincipleStragety().getStragetyValue());
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-gen
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
