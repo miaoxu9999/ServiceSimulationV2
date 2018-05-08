@@ -47,7 +47,9 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 		// TODO Auto-generated method stub
 		List<Service> res = new ArrayList<>();
 		if (demand == null) {
-			return SimulationUtil.getRandomClass(RandomHelper.nextIntFromTo(1, services.size() / 2 + 1), services);
+			res = SimulationUtil.getRandomClass(RandomHelper.nextIntFromTo(1, services.size() / 2 + 1), services);
+			doExtraWork(res);
+			return res;
 		}
 		else
 		{
@@ -79,7 +81,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 			
 		}
 		
-		
+		doExtraWork(res);
 		return res;
 	}
 	

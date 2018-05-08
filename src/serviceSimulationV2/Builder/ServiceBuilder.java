@@ -114,7 +114,7 @@ public class ServiceBuilder implements ContextBuilder<Object>{
 		CurrentServicePropertyManager.setReliablityStragety(new FixedReliabilityStragety(8));
 		CurrentServicePropertyManager.setSenseStragety(new FixedSenseStragety(8));
 		CurrentServicePropertyManager.setTransform_abilityStragety(new FixedTransform_abilityStragety(8));
-		CurrentServicePropertyManager.setResponseStragety(new FixedResponseStragety(8));
+		CurrentServicePropertyManager.setResponseStragety(new FixedResponseStragety(8.0));
 	}
 	
 	public void  setCurrentUserManagerProperty() {

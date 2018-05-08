@@ -3,6 +3,8 @@ package serviceSimulationV2.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import repast.simphony.engine.watcher.Watch;
+import repast.simphony.engine.watcher.WatcherTriggerSchedule;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 
@@ -168,6 +170,18 @@ public class Service {
 
 	public void setResponse(double response) {
 		this.response = response;
+	}
+	
+	/**
+	 * 服务的更新，观察用户的评价数量，以及用户的Trust值，User中观察的属性未完成
+	 */
+	@Watch(watcheeClassName ="serviceSimulationV2.Entity.User", watcheeFieldNames = "feedback",
+			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE, query = "linked_from ['network name']", 
+			triggerCondition = "")
+	public void Update()
+	{
+		//使用的数量 * 信任值大于某一个值 || reputation的值低于某个值
+		
 	}
 
 	
