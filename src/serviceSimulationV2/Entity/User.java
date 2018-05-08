@@ -66,9 +66,9 @@ public class User {
 			
 		}
 	}
-	//更新Service的reputation值
+	//添加对于Service的评价
 	@ScheduledMethod(start = 6, interval = 6, priority = 1)
-	public void updateService()
+	public void AddFeedback()
 	{
 		if (choosedServices != null) {
 			for(Service s: choosedServices)
