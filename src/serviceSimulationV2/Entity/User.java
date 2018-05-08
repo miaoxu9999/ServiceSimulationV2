@@ -85,9 +85,7 @@ public class User {
 		if (choosedServices != null) {
 			for(Service s: choosedServices)
 			{
-				double d = RandomHelper.createBinomial(10, 0.3).nextDouble();
-				s.setReputation(d);
-				s.getReputationList().add(d);
+				
 			}
 			
 		}
