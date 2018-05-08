@@ -46,6 +46,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 	@Override
 	public List<Service> getService(Demand demand, List<Service> services) {
 		// TODO Auto-generated method stub
+		List<Service> res = new ArrayList<>();
 		if (demand == null) {
 			return SimulationUtil.getRandomClass(RandomHelper.nextIntFromTo(1, services.size() / 2 + 1), services);
 		}
@@ -55,19 +56,24 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 			HashMap<Tag, List<Service>> taglists = filter(demand, services);
 			//将Service 的reputation值按照从大到小的顺序排列
 			double[] p = {random_coefficients, 1 - random_coefficients};
-			List<Service> res = new ArrayList<>();
+
 			for(Map.Entry<Tag, List<Service>> entry: taglists.entrySet())
 			{
 				List<Service> temp = entry.getValue();
 				if (temp.size() > 0) {
+					//选择0代表随机选择
 					if (roulette(p) == 0) {
 						res.add(temp.get(RandomHelper.nextIntFromTo(1, temp.size() - 1)));
-					}
+					}//权值优先
 					else
 					{
 						sortByReputation(temp);
 						res.add(temp.get(0));
 					}
+				}
+				else
+				{
+					System.out.println("没有满足条件的Service");
 				}
 			}
 			
@@ -75,7 +81,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 		}
 		
 		
-		return null;
+		return res;
 	}
 	
 	//对list降序排序
