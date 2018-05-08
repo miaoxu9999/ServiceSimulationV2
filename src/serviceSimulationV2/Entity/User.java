@@ -36,6 +36,18 @@ public class User {
 	
 	Principle principle;
 	
+	//可靠性
+	private int reliablity;
+		
+	//感观
+	private int sense;
+		
+	//移植性
+	private int transform_ability;
+		
+	//响应性
+	private double response;
+	
 	
 	public User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid, Principle principle) {
 		this(demand,chooseStragety, space, grid);
@@ -66,9 +78,9 @@ public class User {
 			
 		}
 	}
-	//更新Service的reputation值
+	//添加对于Service的评价
 	@ScheduledMethod(start = 6, interval = 6, priority = 1)
-	public void updateService()
+	public void AddFeedback()
 	{
 		if (choosedServices != null) {
 			for(Service s: choosedServices)
