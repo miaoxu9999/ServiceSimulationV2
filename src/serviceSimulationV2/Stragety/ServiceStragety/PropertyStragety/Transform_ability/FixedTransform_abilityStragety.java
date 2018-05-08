@@ -5,32 +5,32 @@ import java.util.List;
 
 import serviceSimulationV2.Stragety.Stragety;
 
-public class FixedTransform_abilityStragety implements Transform_abilityStragety, Stragety<Integer>{
-	int FixedValue;
+public class FixedTransform_abilityStragety implements Transform_abilityStragety, Stragety<Double>{
+	Double FixedValue;
 	
-	public FixedTransform_abilityStragety(int fixedValue) {
+	public FixedTransform_abilityStragety(Double fixedValue) {
 		super();
 		FixedValue = fixedValue;
 	}
 
 	@Override
-	public Integer getStragetyValue() {
+	public Double getStragetyValue() {
 		// TODO Auto-generated method stub
 		return FixedValue;
 	}
 
 	@Override
-	public List<Integer> getStragetyValueList(int size) {
+	public List<Double> getStragetyValueList(int size) {
 		// TODO Auto-generated method stub
-		List<Integer> list = Arrays.asList(getStragetyValueArray(size));
+		List<Double> list = Arrays.asList(getStragetyValueArray(size));
 		
 		return list;
 	}
 
 	@Override
-	public Integer[] getStragetyValueArray(int size) {
+	public Double[] getStragetyValueArray(int size) {
 		// TODO Auto-generated method stub
-		Integer[] array = new Integer[size];
+		Double[] array = new Double[size];
 		Arrays.fill(array, FixedValue);
 		return array;
 	}

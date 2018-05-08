@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import repast.simphony.context.Context;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.continuous.ContinuousSpace;
@@ -37,21 +38,27 @@ public class User {
 	Principle principle;
 	
 	//可靠性
-	private int reliablity;
+	private double reliablity;
 		
 	//感观
-	private int sense;
+	private double sense;
 		
 	//移植性
-	private int transform_ability;
+	private double transform_ability;
 		
 	//响应性
 	private double response;
 	
+	//信任值
+	private double trust;
 	
-	public User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid, Principle principle) {
+	
+	
+	
+	public User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid, Principle principle, double trust) {
 		this(demand,chooseStragety, space, grid);
 		this.principle = principle;
+		this.trust = trust;
 	}
 
 	private User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid) {
@@ -73,6 +80,7 @@ public class User {
 		{
 			if (!network.isAdjacent(this, s)) {
 				network.addEdge(this, s);
+				s.setNumberUsed(s.getNumberUsed() + 1);
 				choosedServices.add(s);
 			}
 			
@@ -85,9 +93,12 @@ public class User {
 		if (choosedServices != null) {
 			for(Service s: choosedServices)
 			{
-				double d = RandomHelper.createBinomial(10, 0.3).nextDouble();
-				s.setReputation(d);
-				s.getReputationList().add(d);
+				reliablity = (this.principle.exp[0] - s.getReliablity()) * this.principle.weight[0];
+				sense = (this.principle.exp[1] - s.getSense()) * this.principle.weight[1];
+				transform_ability = (this.principle.exp[2] - s.getTransform_ability()) * this.principle.weight[2];
+				response = (this.principle.exp[3] - s.getResponse()) * this.principle.weight[3];
+				Feedback feedback = new Feedback(this, RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), reliablity, sense, transform_ability, response);
+				s.addFeedback(feedback);
 			}
 			
 		}

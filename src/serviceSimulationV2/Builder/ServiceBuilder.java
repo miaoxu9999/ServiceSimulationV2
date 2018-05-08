@@ -37,6 +37,7 @@ import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.Transform_a
 import serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.UsedNumberStragety.FixedUsedNumberStragety;
 import serviceSimulationV2.Stragety.UserStragety.MoveInStragety.RandomUserMoveInStragety;
 import serviceSimulationV2.Stragety.UserStragety.PrincipleStragety.FixedPrincipleStragety;
+import serviceSimulationV2.Stragety.UserStragety.ServiceChooseStragety.ReputationFirstChooseStragety;
 import serviceSimulationV2.UserGenerator.RandomUserGenerator;
 
 /** 
@@ -111,13 +112,14 @@ public class ServiceBuilder implements ContextBuilder<Object>{
 		CurrentServicePropertyManager.setUsedNumberStragety(new FixedUsedNumberStragety());
 		CurrentServicePropertyManager.setResourceStragety(new RandomResourceStragety());
 		
-		CurrentServicePropertyManager.setReliablityStragety(new FixedReliabilityStragety(8));
-		CurrentServicePropertyManager.setSenseStragety(new FixedSenseStragety(8));
-		CurrentServicePropertyManager.setTransform_abilityStragety(new FixedTransform_abilityStragety(8));
+		CurrentServicePropertyManager.setReliablityStragety(new FixedReliabilityStragety(8.0));
+		CurrentServicePropertyManager.setSenseStragety(new FixedSenseStragety(8.0));
+		CurrentServicePropertyManager.setTransform_abilityStragety(new FixedTransform_abilityStragety(8.0));
 		CurrentServicePropertyManager.setResponseStragety(new FixedResponseStragety(8.0));
 	}
 	
 	public void  setCurrentUserManagerProperty() {
+		CurrentUserManager.setUserChooseStragety(new ReputationFirstChooseStragety(0.1));
 		CurrentUserManager.setDemandStragety(new RandomDemandStragety());
 		CurrentUserManager.setUsergenerator(new RandomUserGenerator());
 		CurrentUserManager.setUserMoveInStragety(new RandomUserMoveInStragety());

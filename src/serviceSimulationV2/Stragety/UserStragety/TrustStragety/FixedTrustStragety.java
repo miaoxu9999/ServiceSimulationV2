@@ -1,15 +1,14 @@
-package serviceSimulationV2.Stragety.ServiceStragety.PropertyStragety.ReliabilityStragety;
+package serviceSimulationV2.Stragety.UserStragety.TrustStragety;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import serviceSimulationV2.Stragety.Stragety;
 
-public class FixedReliabilityStragety implements ReliabilityStragety, Stragety<Double>{
+public class FixedTrustStragety implements Stragety<Double>, TrustStragety{
 	Double FixedValue;
 	
-	public FixedReliabilityStragety(Double fixedValue) {
+	public FixedTrustStragety(Double fixedValue) {
 		super();
 		FixedValue = fixedValue;
 	}
@@ -31,9 +30,9 @@ public class FixedReliabilityStragety implements ReliabilityStragety, Stragety<D
 	@Override
 	public Double[] getStragetyValueArray(int size) {
 		// TODO Auto-generated method stub
-		Double[] reliablityArray = new Double[size];
-		Arrays.fill(reliablityArray, FixedValue);
-		return reliablityArray;
+		Double[] array = new Double[size];
+		Arrays.fill(array, FixedValue);
+		return array;
 	}
 
 }

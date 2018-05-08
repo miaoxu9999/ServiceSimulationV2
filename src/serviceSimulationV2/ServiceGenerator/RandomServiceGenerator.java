@@ -36,9 +36,9 @@ public class RandomServiceGenerator extends ServiceGenerator{
 	    Stragety responseStragety = CurrentServicePropertyManager.getResponseStragety();
 	    
 		Service s = new Service(schedule.getTickCount(), CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid(), (Tag) tagStragety.getStragetyValue(), (double) reputationStragety.getStragetyValue(), (Resource)resourceStragety.getStragetyValue(),
-				(int)reliablityStragety.getStragetyValue(),
-				(int)senseStragety.getStragetyValue(),
-				(int)transform_abilityStragety.getStragetyValue(),
+				(double)reliablityStragety.getStragetyValue(),
+				(double)senseStragety.getStragetyValue(),
+				(double)transform_abilityStragety.getStragetyValue(),
 				(double)responseStragety.getStragetyValue());
 		
 		return s;
