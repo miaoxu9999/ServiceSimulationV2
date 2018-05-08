@@ -45,11 +45,11 @@ public class Service {
 	private int transform_ability;
 	
 	//ÏìÓ¦ĞÔ
-	private int response;
+	private double response;
 	
 	public Service(double birthTime, ContinuousSpace<Object> space,
 			Grid<Object> grid, Tag tag, double reputation,Resource resource, int reliablity, int sense,
-			int transform_ability, int response) {
+			int transform_ability, double response) {
 		this(birthTime, space,
 			 grid,  tag,  reputation, resource);
 		
@@ -137,6 +137,40 @@ public class Service {
 	public void setReputationList(List<Double> reputationList) {
 		this.reputationList = reputationList;
 	}
+
+	public int getReliablity() {
+		return reliablity;
+	}
+
+	public void setReliablity(int reliablity) {
+		this.reliablity = reliablity;
+	}
+
+	public int getSense() {
+		return sense;
+	}
+
+	public void setSense(int sense) {
+		this.sense = sense;
+	}
+
+	public int getTransform_ability() {
+		return transform_ability;
+	}
+
+	public void setTransform_ability(int transform_ability) {
+		this.transform_ability = transform_ability;
+	}
+
+	public double getResponse() {
+		return response;
+	}
+
+	public void setResponse(double response) {
+		this.response = response;
+	}
+
+	
 	
 	
 	

@@ -39,7 +39,7 @@ public class RandomServiceGenerator extends ServiceGenerator{
 				(int)reliablityStragety.getStragetyValue(),
 				(int)senseStragety.getStragetyValue(),
 				(int)transform_abilityStragety.getStragetyValue(),
-				(int)reliablityStragety.getStragetyValue());
+				(double)responseStragety.getStragetyValue());
 		
 		return s;
 	}

@@ -49,6 +49,7 @@ public  abstract class ServiceChooseStragety implements Stragety<Service>{
 		
 		return taglists;
 	}
-
+	
+	public abstract void doExtraWork(List<Service> services) ;
 }
  
