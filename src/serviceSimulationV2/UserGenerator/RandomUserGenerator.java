@@ -5,6 +5,7 @@ import serviceSimulationV2.Entity.Principle;
 import serviceSimulationV2.Entity.User;
 import serviceSimulationV2.Manager.CurrentContext;
 import serviceSimulationV2.Manager.CurrentUserManager;
+import serviceSimulationV2.Stragety.Stragety;
 import serviceSimulationV2.Stragety.DemandStragety.DemandStragety;
 import serviceSimulationV2.Stragety.UserStragety.ServiceChooseStragety.RandomServiceChooseStragety;
 import serviceSimulationV2.Stragety.UserStragety.ServiceChooseStragety.ServiceChooseStragety;
@@ -16,25 +17,24 @@ import serviceSimulationV2.util.Generator;
 * 类说明 
 */
 public class RandomUserGenerator implements Generator<User>{
-	Class[] type = {RandomServiceChooseStragety.class};
+	
 	@Override
 	public User next() {
 		// TODO Auto-generated method stub
 		//获得User的Demand
 		DemandStragety demandStragety = CurrentUserManager.getDemandStragety();
-		
+		Stragety serviceChooseStragety = CurrentUserManager.getUserChooseStragety();
+		Stragety trustStragety = CurrentUserManager.getUserTrustStragety();
 		//获得User的ServiceChooseStragety
 		User user = null;
 		try {
-			user = new User(demandStragety.getStragetyValue(), (ServiceChooseStragety) type[0].newInstance(), CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid(),
-					(Principle)CurrentUserManager.getPrincipleStragety().getStragetyValue());
-		} catch (InstantiationException e) {
+			user = new User(demandStragety.getStragetyValue(), (ServiceChooseStragety) serviceChooseStragety, CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid(),
+					(Principle)CurrentUserManager.getPrincipleStragety().getStragetyValue(),
+					(double) trustStragety.getStragetyValue());
+		} catch (Exception e) {
 			// TODO Auto-gen
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		return user;
 	}
 

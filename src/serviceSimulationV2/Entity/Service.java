@@ -38,20 +38,22 @@ public class Service {
 	private List<Double> reputationList;
 	
 	//可靠性
-	private int reliablity;
+	private double reliablity;
 	
 	//感观
-	private int sense;
+	private double sense;
 	
 	//移植性
-	private int transform_ability;
+	private double transform_ability;
 	
 	//响应性
 	private double response;
 	
+	private List<Feedback> feedbacks;
+	
 	public Service(double birthTime, ContinuousSpace<Object> space,
-			Grid<Object> grid, Tag tag, double reputation,Resource resource, int reliablity, int sense,
-			int transform_ability, double response) {
+			Grid<Object> grid, Tag tag, double reputation,Resource resource, double reliablity, double sense,
+			double transform_ability, double response) {
 		this(birthTime, space,
 			 grid,  tag,  reputation, resource);
 		
@@ -59,6 +61,8 @@ public class Service {
 		this.sense = sense;
 		this.transform_ability = transform_ability;
 		this.response = response;
+		
+		feedbacks = new ArrayList<>();
 	}
 
 	//
@@ -140,7 +144,7 @@ public class Service {
 		this.reputationList = reputationList;
 	}
 
-	public int getReliablity() {
+	public double getReliablity() {
 		return reliablity;
 	}
 
@@ -148,7 +152,7 @@ public class Service {
 		this.reliablity = reliablity;
 	}
 
-	public int getSense() {
+	public double getSense() {
 		return sense;
 	}
 
@@ -156,7 +160,7 @@ public class Service {
 		this.sense = sense;
 	}
 
-	public int getTransform_ability() {
+	public double getTransform_ability() {
 		return transform_ability;
 	}
 
@@ -173,14 +177,28 @@ public class Service {
 	}
 	
 	/**
+	 * 
+	 */
+	public void addFeedback(Feedback feedback) {
+		feedbacks.add(feedback);
+	}
+	
+	/**
 	 * 服务的更新，观察用户的评价数量，以及用户的Trust值，User中观察的属性未完成
 	 */
-	@Watch(watcheeClassName ="serviceSimulationV2.Entity.User", watcheeFieldNames = "feedback",
+	@Watch(watcheeClassName ="serviceSimulationV2.Entity.User", watcheeFieldNames = "reliablity,"
+			+ "sense,"
+			+ "transform_ability"
+			+ "response",
+			
 			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE, query = "linked_from ['network name']", 
 			triggerCondition = "")
 	public void Update()
 	{
 		//使用的数量 * 信任值大于某一个值 || reputation的值低于某个值
+		if (numberUsed > 10) {
+			
+		}
 		
 	}
 

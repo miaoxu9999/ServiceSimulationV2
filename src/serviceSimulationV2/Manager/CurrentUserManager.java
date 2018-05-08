@@ -17,6 +17,8 @@ public class CurrentUserManager {
 	private static Generator<User> usergenerator;
 	private static DemandStragety demandStragety;
 	private static Stragety principleStragety;
+	private static Stragety userTrustStragety;
+	private static Stragety userChooseStragety;
 	public static UserMoveInStragety getUserMoveInStragety() {
 		return userMoveInStragety;
 	}
@@ -42,6 +44,19 @@ public class CurrentUserManager {
 	public static void setPrincipleStragety(Stragety principleStragety) {
 		CurrentUserManager.principleStragety = principleStragety;
 	}
+	public static Stragety getUserTrustStragety() {
+		return userTrustStragety;
+	}
+	public static void setUserTrustStragety(Stragety userTrustStragety) {
+		CurrentUserManager.userTrustStragety = userTrustStragety;
+	}
+	public static Stragety getUserChooseStragety() {
+		return userChooseStragety;
+	}
+	public static void setUserChooseStragety(Stragety userChooseStragety) {
+		CurrentUserManager.userChooseStragety = userChooseStragety;
+	}
+	
 	
 	
 	
