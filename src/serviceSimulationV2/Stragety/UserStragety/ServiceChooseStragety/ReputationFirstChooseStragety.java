@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.stringtemplate.v4.compiler.STParser.element_return;
 
 import repast.simphony.random.RandomHelper;
 import serviceSimulationV2.Entity.Service;
@@ -112,6 +111,16 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
         }
         return -1;
     }
+
+	@Override
+	public void doExtraWork(List<Service> services) {
+		// TODO Auto-generated method stub
+		//选择之后，每个服务的响应性降低0.1
+		for(Service s: services)
+		{
+			s.setResponse(s.getResponse() - 0.1);
+		}
+	}
 	
 	
 

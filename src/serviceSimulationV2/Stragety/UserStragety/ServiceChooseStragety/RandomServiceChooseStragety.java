@@ -88,5 +88,12 @@ public class RandomServiceChooseStragety extends ServiceChooseStragety{
 		return demandstragetyMap;
 	}
 
+
+	@Override
+	public void doExtraWork(List<Service> services) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
  
