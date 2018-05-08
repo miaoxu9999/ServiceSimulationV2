@@ -36,6 +36,18 @@ public class User {
 	
 	Principle principle;
 	
+	//可靠性
+	private int reliablity;
+		
+	//感观
+	private int sense;
+		
+	//移植性
+	private int transform_ability;
+		
+	//响应性
+	private double response;
+	
 	
 	public User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid, Principle principle) {
 		this(demand,chooseStragety, space, grid);
