@@ -10,5 +10,19 @@ public class Principle {
 		this.weight = weight;
 		this.exp = exp;
 	}
+	public double[] getWeight() {
+		return weight;
+	}
+	public void setWeight(double[] weight) {
+		this.weight = weight;
+	}
+	public int[] getExp() {
+		return exp;
+	}
+	public void setExp(int[] exp) {
+		this.exp = exp;
+	}
+	
+	
 	
 }

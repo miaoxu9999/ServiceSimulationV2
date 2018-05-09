@@ -103,6 +103,25 @@ public class User {
 			
 		}
 	}
+
+	
+	public double getTrust() {
+		return trust;
+	}
+
+	public void setTrust(double trust) {
+		this.trust = trust;
+	}
+
+	public Principle getPrinciple() {
+		return principle;
+	}
+
+	public void setPrinciple(Principle principle) {
+		this.principle = principle;
+	}
+	
+	
 	
 	
 	

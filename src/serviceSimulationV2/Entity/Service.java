@@ -1,8 +1,15 @@
 package serviceSimulationV2.Entity;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;import org.apache.poi.hssf.record.UseSelFSRecord;
 
+import bibliothek.gui.dock.action.FilteredDockActionSource;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.engine.watcher.Watch;
 import repast.simphony.engine.watcher.WatcherTriggerSchedule;
 import repast.simphony.space.continuous.ContinuousSpace;
@@ -15,7 +22,7 @@ import repast.simphony.space.grid.Grid;
 * 类说明 
 */
 public class Service {
-//	Service的属性
+	//	Service的属性
 	private static long counter = 0;
     private final long id = counter++;
 	private Tag tag;
@@ -186,18 +193,82 @@ public class Service {
 	/**
 	 * 服务的更新，观察用户的评价数量，以及用户的Trust值，User中观察的属性未完成
 	 */
-	@Watch(watcheeClassName ="serviceSimulationV2.Entity.User", watcheeFieldNames = "reliablity,"
-			+ "sense,"
-			+ "transform_ability"
-			+ "response",
-			
-			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE, query = "linked_from ['network name']", 
-			triggerCondition = "")
+//	@Watch(watcheeClassName ="serviceSimulationV2.Entity.User", watcheeFieldNames = "reliablity,"
+//			+ "sense,"
+//			+ "transform_ability"
+//			+ "response",
+//			
+//			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE, query = "linked_from ['network name']", 
+//			triggerCondition = "")
+	@ScheduledMethod(start = 2, interval = 10, priority = 3)
 	public void Update()
 	{
 		//使用的数量 * 信任值大于某一个值 || reputation的值低于某个值
-		if (numberUsed > 10) {
-			
+		HashSet<User> users = new HashSet<>();
+		Feedback feedback_all = new Feedback(null, 0, 0, 0, 0, 0);
+		getAllUserFeedback(users, feedback_all);
+		if (numberUsed > 10 ) {
+			//如果User反馈的reliability * User的Trust值的和 小于某一个值，更新reliability
+			if (feedback_all.getReliablity() < -1) {
+				updateUserFactor("Reliablity", 5.0, reliablity + 0.1);
+			}
+			if (feedback_all.getSense() < -1) {
+				updateUserFactor("Sense", 5.0, sense + 0.1);
+			}
+			if (feedback_all.getTransform_ability() < -1) {
+				updateUserFactor("Transform_ability", 5.0, transform_ability + 0.1);
+			}
+			if (feedback_all.getResponse() < -1) {
+				updateUserFactor("Response", 5.0, response + 0.1);
+			}
+		}
+		
+	}
+	
+	public void  updateFactorValue(String type, double value) {
+		if (type.equals("Reliablity")) {
+			this.reliablity = value;
+		}
+		else if (type.equals("Sense")) {
+			this.sense = value;
+		}
+		else if (type.equals("Transform_ability")) {
+			this.transform_ability = value;
+		}
+		else if (type.equals("Response")) {
+			this.response = value;
+		}
+	}
+	
+	/**
+	 * 更新用户衡量的四个要素
+	 * @param type 更新哪种类型
+	 * @param time 下一次更新的时间
+	 * @param newvalue 设定的新值
+	 */
+	public void updateUserFactor(String type, double time, double newvalue) {
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double current_tick = schedule.getTickCount();
+		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(current_tick + time, 1);
+		schedule.schedule(scheduleParameters, this, "updateFactorValue", type, newvalue);
+	}
+	
+	
+	public void getAllUserFeedback(HashSet<User> users, Feedback feedbackall) {
+		for(Feedback feedback: feedbacks)
+		{
+			User user = feedback.getUser();
+			Principle principle = user.getPrinciple();
+			users.add(user);
+			//当前用户给出的可用性评价
+			double r = (principle.getExp()[0] - reliablity) * principle.getWeight()[0] * user.getTrust();
+			feedback.setReliablity(feedback.getReliablity() + r);
+			double s = (principle.getExp()[1] - sense) * principle.getWeight()[1] * user.getTrust();
+			feedback.setSense(feedback.getSense() + s);
+			double t = (principle.getExp()[2] - transform_ability) * principle.getWeight()[2] * user.getTrust();
+			feedback.setTransform_ability(feedback.getTransform_ability() + t);
+			double a = (principle.getExp()[3] - response) * principle.getWeight()[3] * user.getTrust();
+			feedback.setResponse(feedback.getResponse() + a);
 		}
 		
 	}
