@@ -13,7 +13,7 @@ public class FixedUserMoveInStragety extends UserMoveInStragety{
 	@Override
 	public int getAmount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return usernumber;
 	}
 
 }
