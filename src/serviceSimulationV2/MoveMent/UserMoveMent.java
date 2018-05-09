@@ -17,7 +17,7 @@ import serviceSimulationV2.util.Position;
 */
 public class UserMoveMent {
 	
-	@ScheduledMethod(start = 2, interval = 2, priority = 3)
+	@ScheduledMethod(start = 2, interval = 0, priority = 3)
 	public void UserAppendent() {
 		//»ñµÃMoveInStragety
 		UserMoveInStragety moveInStragety = CurrentUserManager.getUserMoveInStragety();

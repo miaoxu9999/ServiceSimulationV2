@@ -47,7 +47,6 @@ public class ServiceMoveMent {
 		{
 			Tag tag = entry.getKey();
 			int num = entry.getValue();
-			System.out.println("num 的数量是" + num);
 			for (int i = 0; i < num; i++) {
 				Service s = serviceGenerator.next();
 				context.add(s);
