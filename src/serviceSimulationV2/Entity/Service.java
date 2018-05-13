@@ -190,6 +190,10 @@ public class Service {
 		feedbacks.add(feedback);
 	}
 	
+	public int  getFeedBackCount() {
+		return feedbacks.size();
+	}
+	
 	/**
 	 * 服务的更新，观察用户的评价数量，以及用户的Trust值，User中观察的属性未完成
 	 */
@@ -200,14 +204,14 @@ public class Service {
 //			
 //			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE, query = "linked_from ['network name']", 
 //			triggerCondition = "")
-	@ScheduledMethod(start = 2, interval = 10, priority = 3)
+	@ScheduledMethod(start = 10, interval = 10, priority = 3)
 	public void Update()
 	{
 		//使用的数量 * 信任值大于某一个值 || reputation的值低于某个值
 		HashSet<User> users = new HashSet<>();
 		Feedback feedback_all = new Feedback(null, 0, 0, 0, 0, 0);
 		getAllUserFeedback(users, feedback_all);
-		if (numberUsed > 10 ) {
+		if (numberUsed >= 2 ) {
 			//如果User反馈的reliability * User的Trust值的和 小于某一个值，更新reliability
 			if (feedback_all.getReliablity() < -1) {
 				updateUserFactor("Reliablity", 5.0, reliablity + 0.1);

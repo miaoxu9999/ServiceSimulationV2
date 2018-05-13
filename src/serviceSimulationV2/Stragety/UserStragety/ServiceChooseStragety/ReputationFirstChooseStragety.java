@@ -64,7 +64,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 				if (temp.size() > 0) {
 					//选择0代表随机选择
 					if (roulette(p) == 0) {
-						res.add(temp.get(RandomHelper.nextIntFromTo(1, temp.size() - 1)));
+						res.add(temp.get(RandomHelper.nextIntFromTo(0, temp.size() - 1)));
 					}//权值优先
 					else
 					{
@@ -120,9 +120,11 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 		//选择之后，每个服务的响应性降低0.1
 		for(Service s: services)
 		{
-			s.setResponse(s.getResponse() - 0.1);
+			s.setResponse(s.getResponse() + 0.1);
 		}
 	}
+	
+
 	
 	
 

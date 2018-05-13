@@ -76,12 +76,14 @@ public class User {
 		List<Service> listServices = chooseStragety.getService(demand, ServiceResponsitory.getList());
 		Context<Object> context = CurrentContext.getCurrentContext();
 		Network<Object> network = (Network<Object>) context.getProjection("AgentServiceNetwork");
+//		System.out.println(listServices+  "is being chooseed");
 		for(Service s: listServices)
 		{
 			if (!network.isAdjacent(this, s)) {
 				network.addEdge(this, s);
 				s.setNumberUsed(s.getNumberUsed() + 1);
 				choosedServices.add(s);
+				
 			}
 			
 		}
@@ -93,12 +95,14 @@ public class User {
 		if (choosedServices != null) {
 			for(Service s: choosedServices)
 			{
-				reliablity = (this.principle.exp[0] - s.getReliablity()) * this.principle.weight[0];
-				sense = (this.principle.exp[1] - s.getSense()) * this.principle.weight[1];
-				transform_ability = (this.principle.exp[2] - s.getTransform_ability()) * this.principle.weight[2];
-				response = (this.principle.exp[3] - s.getResponse()) * this.principle.weight[3];
+				reliablity = (s.getReliablity() - this.principle.exp[0]  ) * this.principle.weight[0];
+				sense = (s.getSense() - this.principle.exp[1]  ) * this.principle.weight[1];
+				transform_ability = (s.getTransform_ability() - this.principle.exp[2]  ) * this.principle.weight[2];
+				response = (s.getResponse() - this.principle.exp[3] ) * this.principle.weight[3];
 				Feedback feedback = new Feedback(this, RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), reliablity, sense, transform_ability, response);
 				s.addFeedback(feedback);
+				double sum = reliablity + sense + transform_ability + response;
+				s.setReputation( (s.getReputation() * s.getFeedBackCount() + sum) / (s.getFeedBackCount() + 1));
 			}
 			
 		}

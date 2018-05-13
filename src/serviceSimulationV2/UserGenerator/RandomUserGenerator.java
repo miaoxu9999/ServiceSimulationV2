@@ -26,15 +26,20 @@ public class RandomUserGenerator implements Generator<User>{
 		Stragety serviceChooseStragety = CurrentUserManager.getUserChooseStragety();
 		Stragety trustStragety = CurrentUserManager.getUserTrustStragety();
 		//»ñµÃUserµÄServiceChooseStragety
+//		System.out.println(demandStragety);
+//		System.out.println(trustStragety);
+//		System.out.println(serviceChooseStragety);
 		User user = null;
+		user = new User(demandStragety.getStragetyValue(), (ServiceChooseStragety) serviceChooseStragety, CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid(),
+				(Principle)(CurrentUserManager.getPrincipleStragety().getStragetyValue()),
+				(double) (trustStragety.getStragetyValue()));
 		try {
-			user = new User(demandStragety.getStragetyValue(), (ServiceChooseStragety) serviceChooseStragety, CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid(),
-					(Principle)CurrentUserManager.getPrincipleStragety().getStragetyValue(),
-					(double) trustStragety.getStragetyValue());
+			
 		} catch (Exception e) {
 			// TODO Auto-gen
 			e.printStackTrace();
 		} 
+		
 		return user;
 	}
 

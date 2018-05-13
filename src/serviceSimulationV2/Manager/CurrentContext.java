@@ -10,10 +10,10 @@ import repast.simphony.space.grid.Grid;
 * ภเหตร๗ 
 */
 public class CurrentContext {
-	private static Context currentContext;
+	private static Context<Object> currentContext;
 	private static ContinuousSpace<Object> currentSpace;
 	private static Grid<Object> currentGrid;
-	public static Context getCurrentContext() {
+	public static Context<Object> getCurrentContext() {
 		return currentContext;
 	}
 	public static void setCurrentContext(Context currentContext1) {

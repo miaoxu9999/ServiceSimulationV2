@@ -27,7 +27,7 @@ public class RandomDemand extends Demand{
 		tagCount = new HashMap<Tag, Integer>();
 		
 		//从tag中随机选取一个tag作为denmand
-		int randindex = RandomHelper.nextIntFromTo(0, TagResponsitory.getTags().size());
+		int randindex = RandomHelper.nextIntFromTo(0, TagResponsitory.getTags().size() - 1);
 		List<Tag> list = new ArrayList<>();
 		list.add(TagResponsitory.getTags().get(randindex));
 		
