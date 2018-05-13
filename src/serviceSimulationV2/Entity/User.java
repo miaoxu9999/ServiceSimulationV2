@@ -83,7 +83,6 @@ public class User {
 				network.addEdge(this, s);
 				s.setNumberUsed(s.getNumberUsed() + 1);
 				choosedServices.add(s);
-				
 			}
 			
 		}

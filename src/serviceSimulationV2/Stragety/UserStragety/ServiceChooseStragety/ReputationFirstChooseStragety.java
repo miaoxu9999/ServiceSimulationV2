@@ -134,15 +134,14 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 	 * Service ResponseµÄ»Ö¸´
 	 */
 	public void serviceResponseRestore(Service service) {
+		System.out.println("serviceResponseRestore Runnning");
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double current_tick = schedule.getTickCount();
-		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(current_tick + 5, 1);
-		schedule.schedule(scheduleParameters, service, "updateResponse", service, service.getResponse() - 1);
+		int randomtime = RandomHelper.nextInt();
+		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(randomtime, 1);
+		schedule.schedule(scheduleParameters, service, "setResponse", service.getResponse() - 1);
 	}
 	
-	public void updateResponse(Service s, double value) {
-		s.setResponse(value);
-	}
 	
 
 	
