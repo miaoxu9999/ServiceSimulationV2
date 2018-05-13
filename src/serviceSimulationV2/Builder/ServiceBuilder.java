@@ -1,6 +1,5 @@
 package serviceSimulationV2.Builder;
 
-import com.sun.swing.internal.plaf.metal.resources.metal_zh_TW;
 
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactory;
@@ -107,7 +106,7 @@ public class ServiceBuilder implements ContextBuilder<Object>{
 		CurrentServiceManager.setMoveInStragety(new PossionServiceMoveInStragety());
 		CurrentServiceManager.setServiceGenerator(new RandomServiceGenerator());
 		CurrentServicePropertyManager.setReputationStragety(new FixedReputationStragety(8));
-		CurrentServiceManager.setMoveOutStragety(new FixedMoveOutStragety(1));
+		CurrentServiceManager.setMoveOutStragety(new FixedMoveOutStragety(0));
 	}
 	
 	/**

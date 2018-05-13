@@ -46,4 +46,8 @@ public class FixedPrincipleStragety implements Stragety<Principle>, PrincipleStr
 		return principles;
 	}
 
+	
+
+	
+	
 }

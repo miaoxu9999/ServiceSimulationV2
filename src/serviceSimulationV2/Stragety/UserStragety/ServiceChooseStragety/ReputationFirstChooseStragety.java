@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.random.RandomHelper;
 import serviceSimulationV2.Entity.Service;
 import serviceSimulationV2.Entity.Tag;
@@ -82,6 +84,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 		}
 		
 		doExtraWork(res);
+		
 		return res;
 	}
 	
@@ -118,10 +121,27 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 	public void doExtraWork(List<Service> services) {
 		// TODO Auto-generated method stub
 		//选择之后，每个服务的响应性降低0.1
+		
+		
 		for(Service s: services)
 		{
 			s.setResponse(s.getResponse() + 0.1);
+			serviceResponseRestore(s);
 		}
+	}
+	
+	/**
+	 * Service Response的恢复
+	 */
+	public void serviceResponseRestore(Service service) {
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double current_tick = schedule.getTickCount();
+		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(current_tick + 5, 1);
+		schedule.schedule(scheduleParameters, service, "updateResponse", service, service.getResponse() - 1);
+	}
+	
+	public void updateResponse(Service s, double value) {
+		s.setResponse(value);
 	}
 	
 

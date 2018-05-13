@@ -59,7 +59,7 @@ public class User {
 		this(demand,chooseStragety, space, grid);
 		this.principle = principle;
 		this.trust = trust;
-	}
+		}
 
 	private User(Demand demand, ServiceChooseStragety chooseStragety, ContinuousSpace<Object> space, Grid<Object> grid) {
 		super();
@@ -102,6 +102,7 @@ public class User {
 				Feedback feedback = new Feedback(this, RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), reliablity, sense, transform_ability, response);
 				s.addFeedback(feedback);
 				double sum = reliablity + sense + transform_ability + response;
+				System.out.println(sum);
 				s.setReputation( (s.getReputation() * s.getFeedBackCount() + sum) / (s.getFeedBackCount() + 1));
 			}
 			
