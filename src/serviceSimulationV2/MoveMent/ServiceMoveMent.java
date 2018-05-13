@@ -38,7 +38,7 @@ public class ServiceMoveMent {
 		this.grid = CurrentContext.getCurrentGrid();
 	}
 	
-	@ScheduledMethod(start = 1, interval = 1, priority = 3)
+	@ScheduledMethod(start = 1, interval = 2, priority = 3)
 	public void Appendent()
 	{
 		HashMap<Tag, Integer> service = (HashMap<Tag, Integer>) CurrentServiceManager.getMoveInStragety().getStragetyValue();

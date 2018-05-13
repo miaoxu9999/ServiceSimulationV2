@@ -24,5 +24,15 @@ public class Principle {
 	}
 	
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String string  = "";
+		for (int i = 0; i < exp.length; i++) {
+			string += exp[i];
+		}
+		return string;
+	}
+	
 	
 }

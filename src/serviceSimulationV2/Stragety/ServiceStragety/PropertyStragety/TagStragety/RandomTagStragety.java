@@ -18,7 +18,7 @@ public class RandomTagStragety implements TagStragety<Tag>, Stragety<Tag>{
 	@Override
 	public Tag getStragetyValue() {
 		// TODO Auto-generated method stub
-		List<Tag> list = TagResponsitory.getAllTags();
+		List<Tag> list = TagResponsitory.getTags();
 		//随机生成选择tag的序号
 		int randindex = RandomHelper.nextIntFromTo(1, list.size() - 1);
 		return list.get(randindex);

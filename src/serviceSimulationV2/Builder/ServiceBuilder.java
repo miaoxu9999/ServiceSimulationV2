@@ -1,6 +1,5 @@
 package serviceSimulationV2.Builder;
 
-import com.sun.swing.internal.plaf.metal.resources.metal_zh_TW;
 
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactory;
@@ -21,6 +20,7 @@ import serviceSimulationV2.Manager.CurrentServicePropertyManager;
 import serviceSimulationV2.Manager.CurrentUserManager;
 import serviceSimulationV2.MoveMent.ServiceMoveMent;
 import serviceSimulationV2.MoveMent.UserMoveMent;
+import serviceSimulationV2.Responsitorry.TagResponsitory;
 import serviceSimulationV2.ServiceGenerator.RandomServiceGenerator;
 import serviceSimulationV2.Stragety.DemandStragety.RandomDemandStragety;
 import serviceSimulationV2.Stragety.ServiceStragety.MoveInStragety.PossionServiceMoveInStragety;
@@ -40,6 +40,7 @@ import serviceSimulationV2.Stragety.UserStragety.MoveInStragety.FixedUserMoveInS
 import serviceSimulationV2.Stragety.UserStragety.MoveInStragety.RandomUserMoveInStragety;
 import serviceSimulationV2.Stragety.UserStragety.PrincipleStragety.FixedPrincipleStragety;
 import serviceSimulationV2.Stragety.UserStragety.ServiceChooseStragety.ReputationFirstChooseStragety;
+import serviceSimulationV2.Stragety.UserStragety.TrustStragety.FixedTrustStragety;
 import serviceSimulationV2.UserGenerator.RandomUserGenerator;
 
 /** 
@@ -67,6 +68,8 @@ public class ServiceBuilder implements ContextBuilder<Object>{
 		Grid<Object> grid  = gridFactory.createGrid("grid",context, 
 										new GridBuilderParameters<Object>(new WrapAroundBorders(), 
 												new SimpleGridAdder<Object>(), true, 50, 50));
+		
+		TagResponsitory.getAllTags();
 		
 		setCurrentContextProperty(context, grid, space);
 		setCurrentServiceManagerProperty();
@@ -124,8 +127,9 @@ public class ServiceBuilder implements ContextBuilder<Object>{
 		CurrentUserManager.setUserChooseStragety(new ReputationFirstChooseStragety(0.1));
 		CurrentUserManager.setDemandStragety(new RandomDemandStragety());
 		CurrentUserManager.setUsergenerator(new RandomUserGenerator());
-		CurrentUserManager.setUserMoveInStragety(new FixedUserMoveInStragety(10));
+		CurrentUserManager.setUserMoveInStragety(new FixedUserMoveInStragety(20));
 		CurrentUserManager.setPrincipleStragety(new FixedPrincipleStragety());
+		CurrentUserManager.setUserTrustStragety(new FixedTrustStragety(8.0));
 	}
 
 }

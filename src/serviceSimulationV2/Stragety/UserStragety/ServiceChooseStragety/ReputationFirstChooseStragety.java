@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.random.RandomHelper;
 import serviceSimulationV2.Entity.Service;
 import serviceSimulationV2.Entity.Tag;
@@ -64,7 +66,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 				if (temp.size() > 0) {
 					//选择0代表随机选择
 					if (roulette(p) == 0) {
-						res.add(temp.get(RandomHelper.nextIntFromTo(1, temp.size() - 1)));
+						res.add(temp.get(RandomHelper.nextIntFromTo(0, temp.size() - 1)));
 					}//权值优先
 					else
 					{
@@ -82,6 +84,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 		}
 		
 		doExtraWork(res);
+		
 		return res;
 	}
 	
@@ -118,11 +121,29 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 	public void doExtraWork(List<Service> services) {
 		// TODO Auto-generated method stub
 		//选择之后，每个服务的响应性降低0.1
+		
+		
 		for(Service s: services)
 		{
-			s.setResponse(s.getResponse() - 0.1);
+			s.setResponse(s.getResponse() + 0.1);
+			serviceResponseRestore(s);
 		}
 	}
+	
+	/**
+	 * Service Response的恢复
+	 */
+	public void serviceResponseRestore(Service service) {
+		System.out.println("serviceResponseRestore Runnning");
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double current_tick = schedule.getTickCount();
+		int randomtime = RandomHelper.nextInt();
+		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(randomtime, 1);
+		schedule.schedule(scheduleParameters, service, "setResponse", service.getResponse() - 1);
+	}
+	
+	
+
 	
 	
 

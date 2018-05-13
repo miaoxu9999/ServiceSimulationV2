@@ -1,5 +1,6 @@
 package serviceSimulationV2.Entity.Demand;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,9 +26,14 @@ public class RandomDemand extends Demand{
 		// TODO Auto-generated constructor stub
 		tagCount = new HashMap<Tag, Integer>();
 		
-		List<Tag> list = TagResponsitory.getTags();
-		int num = RandomHelper.nextIntFromTo(1, list.size() - 1);
-		List<Tag>l = SimulationUtil.getRandomClass(num, list);
+		//从tag中随机选取一个tag作为denmand
+		int randindex = RandomHelper.nextIntFromTo(0, TagResponsitory.getTags().size() - 1);
+		List<Tag> list = new ArrayList<>();
+		list.add(TagResponsitory.getTags().get(randindex));
+		
+//		int num = RandomHelper.nextIntFromTo(1, list.size() - 1);
+//		int num = 1;
+//		List<Tag>l = SimulationUtil.getRandomClass(num, list);
 //		tagCount = MapData.map(list, 1);
 		tagCount = setTagCount(list);
 		

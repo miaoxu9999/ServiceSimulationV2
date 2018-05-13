@@ -27,7 +27,7 @@ public class RandomServiceMoveInStragety extends MoveInStragety{
 	public RandomServiceMoveInStragety() {
 		int num = RandomHelper.nextIntFromTo(1, 10);
 		hashMap = new HashMap<Tag, Integer>();
-		List<Tag> tags = TagResponsitory.getAllTags();
+		List<Tag> tags = TagResponsitory.getTags();
 		List<Tag> randomIndexTags = getRandomTags(num, tags);
 		for (int i = 0; i < randomIndexTags.size(); i++) {
 			hashMap.put(randomIndexTags.get(i), RandomHelper.nextIntFromTo(1, 10));

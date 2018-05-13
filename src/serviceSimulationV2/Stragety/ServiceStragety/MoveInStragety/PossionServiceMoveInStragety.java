@@ -25,8 +25,10 @@ public class PossionServiceMoveInStragety extends MoveInStragety{
 		hashMap = new HashMap<>();
 		// TODO Auto-generated method stub
 		int tickcount = (int)RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
-		int num = (int) (RandomHelper.createPoisson(2).pdf(tickcount) * 31);
-		List<Tag> tags = TagResponsitory.getAllTags();
+//		int num = (int) (RandomHelper.createPoisson(2).pdf(tickcount) * 31);
+		int num = (int) (RandomHelper.createPoisson(2).pdf(tickcount) * 20);
+
+		List<Tag> tags = TagResponsitory.getTags();
 		for(Tag tag: tags)
 		{
 			hashMap.put(tag, num);
