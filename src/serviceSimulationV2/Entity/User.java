@@ -97,7 +97,7 @@ public class User {
 				reliablity = (s.getReliablity() - this.principle.exp[0]  ) * this.principle.weight[0];
 				sense = (s.getSense() - this.principle.exp[1]  ) * this.principle.weight[1];
 				transform_ability = (s.getTransform_ability() - this.principle.exp[2]  ) * this.principle.weight[2];
-				response = (s.getResponse() - this.principle.exp[3] ) * this.principle.weight[3];
+				response = (this.principle.exp[3] - s.getResponse() ) * this.principle.weight[3];
 				Feedback feedback = new Feedback(this, RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), reliablity, sense, transform_ability, response);
 				s.addFeedback(feedback);
 				double sum = reliablity + sense + transform_ability + response;

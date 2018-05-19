@@ -82,9 +82,7 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 			
 			
 		}
-		
 		doExtraWork(res);
-		
 		return res;
 	}
 	
@@ -121,8 +119,6 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 	public void doExtraWork(List<Service> services) {
 		// TODO Auto-generated method stub
 		//选择之后，每个服务的响应性降低0.1
-		
-		
 		for(Service s: services)
 		{
 			s.setResponse(s.getResponse() + 0.1);
@@ -138,8 +134,8 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double current_tick = schedule.getTickCount();
 		int randomtime = RandomHelper.nextInt();
-		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(randomtime, 1);
-		schedule.schedule(scheduleParameters, service, "setResponse", service.getResponse() - 1);
+		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(current_tick + 5, 1);
+		schedule.schedule(scheduleParameters, service, "setResponse", service.getResponse() - 0.1);
 	}
 	
 	

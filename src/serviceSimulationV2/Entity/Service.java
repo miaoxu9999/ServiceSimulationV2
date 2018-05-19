@@ -56,7 +56,14 @@ public class Service {
 	//响应性
 	private double response;
 	
+	//所有选择Service的用户对Service的评价
 	private List<Feedback> feedbacks;
+	
+	//服务的初始可支配金额
+	private  double initial_capital;
+	
+	//服务的更新成本
+	private double update_cost;
 	
 	public Service(double birthTime, ContinuousSpace<Object> space,
 			Grid<Object> grid, Tag tag, double reputation,Resource resource, double reliablity, double sense,
@@ -211,7 +218,7 @@ public class Service {
 		HashSet<User> users = new HashSet<>();
 		Feedback feedback_all = new Feedback(null, 0, 0, 0, 0, 0);
 		getAllUserFeedback(users, feedback_all);
-		if (numberUsed >= 2 ) {
+		if (numberUsed >= 1 ) {
 			//如果User反馈的reliability * User的Trust值的和 小于某一个值，更新reliability
 			if (feedback_all.getReliablity() < -1) {
 				updateUserFactor("Reliablity", 5.0, reliablity + 0.1);
@@ -222,8 +229,10 @@ public class Service {
 			if (feedback_all.getTransform_ability() < -1) {
 				updateUserFactor("Transform_ability", 5.0, transform_ability + 0.1);
 			}
-			if (feedback_all.getResponse() < -1) {
-				updateUserFactor("Response", 5.0, response + 0.1);
+			if (feedback_all.getResponse() < 6) {
+				if (this.getResponse() > 1) {
+					updateUserFactor("Response", 5.0, response - 0.1);
+				}
 			}
 		}
 		
@@ -276,6 +285,24 @@ public class Service {
 		}
 		
 	}
+
+	public double getInitial_capital() {
+		return initial_capital;
+	}
+
+	public void setInitial_capital(double initial_capital) {
+		this.initial_capital = initial_capital;
+	}
+
+	public double getUpdate_cost() {
+		return update_cost;
+	}
+
+	public void setUpdate_cost(double update_cost) {
+		this.update_cost = update_cost;
+	}
+	
+	
 
 	
 	
