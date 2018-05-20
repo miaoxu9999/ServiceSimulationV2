@@ -20,6 +20,8 @@ import serviceSimulationV2.Stragety.UserStragety.ServiceChooseStragety.ServiceCh
 * @author MiaoXu E-mail: 
 * @version 创建时间：2018年3月28日 下午3:11:04 
 * 类说明 
+* 
+* 修改： 改变User的评分策略
 */
 public class User {
 	private static long counter = 0;
@@ -94,15 +96,22 @@ public class User {
 		if (choosedServices != null) {
 			for(Service s: choosedServices)
 			{
-				reliablity = (s.getReliablity() - this.principle.exp[0]  ) * this.principle.weight[0];
-				sense = (s.getSense() - this.principle.exp[1]  ) * this.principle.weight[1];
-				transform_ability = (s.getTransform_ability() - this.principle.exp[2]  ) * this.principle.weight[2];
-				response = (this.principle.exp[3] - s.getResponse() ) * this.principle.weight[3];
+				reliablity = (s.getReliablity() - this.principle.exp[0] +  s.getReliablity()) * this.principle.weight[0];
+				sense = (s.getSense() - this.principle.exp[1] +  s.getSense()) * this.principle.weight[1];
+				transform_ability = (s.getTransform_ability() - this.principle.exp[2]  + s.getTransform_ability()) * this.principle.weight[2];
+				response = (s.getResponse() - this.principle.exp[3] + s.getResponse()) * this.principle.weight[3];
 				Feedback feedback = new Feedback(this, RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), reliablity, sense, transform_ability, response);
 				s.addFeedback(feedback);
 				double sum = reliablity + sense + transform_ability + response;
 				System.out.println(sum);
-				s.setReputation( (s.getReputation() * s.getFeedBackCount() + sum) / (s.getFeedBackCount() + 1));
+				double reputation = (s.getReputation() * s.getFeedBackCount() + sum) / (s.getFeedBackCount() + 1);
+				if (reputation > 0) {
+					s.setReputation(reputation);
+				}
+				else
+				{
+					s.setReputation(0);
+				}
 			}
 			
 		}
