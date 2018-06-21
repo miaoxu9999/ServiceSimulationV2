@@ -121,8 +121,12 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 		//选择之后，每个服务的响应性降低0.1
 		for(Service s: services)
 		{
-			s.setResponse(s.getResponse() + 0.1);
-			serviceResponseRestore(s);
+			if(s.getResponse() > 0)
+			{
+				s.setResponse(s.getResponse() - 0.1);
+				serviceResponseRestore(s);
+			}
+			
 		}
 	}
 	
@@ -130,12 +134,11 @@ public class ReputationFirstChooseStragety extends ServiceChooseStragety{
 	 * Service Response的恢复
 	 */
 	public void serviceResponseRestore(Service service) {
-		System.out.println("serviceResponseRestore Runnning");
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double current_tick = schedule.getTickCount();
 		int randomtime = RandomHelper.nextInt();
 		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(current_tick + 5, 1);
-		schedule.schedule(scheduleParameters, service, "setResponse", service.getResponse() - 0.1);
+		schedule.schedule(scheduleParameters, service, "setResponse", service.getResponse() + 0.1);
 	}
 	
 	

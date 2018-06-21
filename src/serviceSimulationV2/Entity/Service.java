@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;import org.apache.poi.hssf.record.UseSelFSRecord;
 
 import bibliothek.gui.dock.action.FilteredDockActionSource;
+import bsh.This;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
@@ -14,6 +15,8 @@ import repast.simphony.engine.watcher.Watch;
 import repast.simphony.engine.watcher.WatcherTriggerSchedule;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
+import serviceSimulationV2.Manager.CurrentServiceManager;
+import serviceSimulationV2.Manager.CurrentServicePropertyManager;
 
 
 /** 
@@ -25,6 +28,9 @@ public class Service {
 	//	Service的属性
 	private static long counter = 0;
     private final long id = counter++;
+    //设定的服务初始可支配的钱数
+    private static  double firstvalue;
+    int count = 0;
 	private Tag tag;
 	
 	//评分
@@ -107,7 +113,19 @@ public class Service {
 	}
 
 	public void setReputation(double reputation) {
-		this.reputation = reputation;
+		if (reputation < 0) {
+			this.reputation = 0;
+		}
+		else if (reputation > 10) {
+			this.reputation = 10;
+		}
+		else {
+			this.reputation = reputation;
+		}
+	}
+	
+	public  long getId() {
+		return id;
 	}
 
 	public double getBirthTime() {
@@ -217,25 +235,131 @@ public class Service {
 		//使用的数量 * 信任值大于某一个值 || reputation的值低于某个值
 		HashSet<User> users = new HashSet<>();
 		Feedback feedback_all = new Feedback(null, 0, 0, 0, 0, 0);
-		getAllUserFeedback(users, feedback_all);
-		if (numberUsed >= 1 ) {
+		
+		double updatevalue = getUpdate_cost();
+		if (numberUsed >= 1 && (initial_capital - updatevalue) > 0 && reputation > 0) {
 			//如果User反馈的reliability * User的Trust值的和 小于某一个值，更新reliability
-			if (feedback_all.getReliablity() < -1) {
-				updateUserFactor("Reliablity", 5.0, reliablity + 0.1);
+			getAllUserFeedback(users, feedback_all);
+			if (feedback_all.getReliablity() < 6) {
+				updateUserFactor("Reliablity", 5.0, reliablity + 1);
+				updateUserTrust("Reliablity", feedback_all.getReliablity(), 0.1);
 			}
-			if (feedback_all.getSense() < -1) {
-				updateUserFactor("Sense", 5.0, sense + 0.1);
+			if (feedback_all.getSense() < 6) {
+				updateUserFactor("Sense", 5.0, sense + 1);
+				updateUserTrust("Sense", feedback_all.getReliablity(), 0.1);
 			}
-			if (feedback_all.getTransform_ability() < -1) {
-				updateUserFactor("Transform_ability", 5.0, transform_ability + 0.1);
+			if (feedback_all.getTransform_ability() < 6) {
+				updateUserFactor("Transform_ability", 5.0, transform_ability + 1);
+				updateUserTrust("Transform_ability", feedback_all.getReliablity(), 0.1);
+
 			}
 			if (feedback_all.getResponse() < 6) {
-				if (this.getResponse() > 1) {
-					updateUserFactor("Response", 5.0, response - 0.1);
+				updateUserTrust("Response", feedback_all.getReliablity(), 0.1);
+				if (this.getResponse() > 2) {
+					updateUserFactor("Response", 5.0, response + 1.5);
 				}
+				else
+				{
+					updateUserFactor("Response", 5.0, response + 2.5);
+				}
+			}
+			if (reputation > CurrentServiceManager.getReputationupdatecondition() || numberUsed > 10) {
+				double addvalue = reputation - CurrentServiceManager.getReputationupdatecondition();
+				addvalue = addvalue * 100; 
+				setInitial_capital(addvalue + getInitial_capital());
+			}
+			
+			if (getInitial_capital() > 4000 && getInitial_capital() < firstvalue * 2) {
+				setReputation(getReputation() + 0.00001 * (getInitial_capital() - 2000));
 			}
 		}
 		
+		if (getInitial_capital() < firstvalue / 2) {
+			if (getReputation() > 5) {
+				setReputation(getReputation() - 0.001 * (2000 - getInitial_capital()));
+			}
+		}
+		
+	}
+	
+	/** 
+	 * 更新用户的Trust值
+	 * @param type
+	 * @param value
+	 * @param range
+	 */
+	public void updateUserTrust(String type, double value,double range) {
+		
+		double addvalue = 0.1;
+		// 围绕某一点浮动更新，在这个范围的更新         
+		for(Feedback feedback: feedbacks)
+		{
+			User user = feedback.getUser();
+			double currrenttime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+			if (currrenttime - feedback.getTime()  >= 10 && currrenttime - feedback.getTime()  <= 15) {
+				if (type.equals("Reliablity")) {
+					if (feedback.getReliablity() >= value - range && feedback.getReliablity() <= value + range) {
+						if (user.getTrust() + addvalue < 1) {
+							user.setTrust(user.getTrust() + addvalue);
+						}
+						
+					}
+					else
+					{
+						if (user.getTrust() - addvalue > 0)
+						{
+							user.setTrust(user.getTrust() - addvalue);
+						}
+						
+					}
+				}
+				else if (type.equals("Sense")) {
+					if (feedback.getSense() >= value - range && feedback.getReliablity() <= value + range)
+					{
+						if (user.getTrust() + addvalue < 1) {
+							user.setTrust(user.getTrust() + addvalue);
+						}
+					}
+					else
+					{
+						if (user.getTrust() - addvalue > 0)
+						{
+							user.setTrust(user.getTrust() - addvalue);
+						}
+					}
+				}
+				else if (type.equals("Transform_ability")) {
+					if (feedback.getTransform_ability() >= value - range && feedback.getReliablity() <= value + range)
+					{
+						if (user.getTrust() + addvalue < 1) {
+							user.setTrust(user.getTrust() + addvalue);
+						}
+					}
+					else
+					{
+						if (user.getTrust() - addvalue > 0)
+						{
+							user.setTrust(user.getTrust() - addvalue);
+						}
+					}
+				}
+				else if (type.equals("Response")) {
+					if (feedback.getResponse() >= value - range && feedback.getReliablity() <= value + range)
+					{
+						if (user.getTrust() + addvalue < 1) {
+							user.setTrust(user.getTrust() + addvalue);
+						}
+					}
+					else
+					{
+						if (user.getTrust() - addvalue > 0)
+						{
+							user.setTrust(user.getTrust() - addvalue);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public void  updateFactorValue(String type, double value) {
@@ -264,25 +388,33 @@ public class Service {
 		double current_tick = schedule.getTickCount();
 		ScheduleParameters scheduleParameters = ScheduleParameters.createOneTime(current_tick + time, 1);
 		schedule.schedule(scheduleParameters, this, "updateFactorValue", type, newvalue);
+		
+		//更新初始资产
+		setInitial_capital(getInitial_capital() - getUpdate_cost());
 	}
 	
 	
+	
 	public void getAllUserFeedback(HashSet<User> users, Feedback feedbackall) {
+		double r = 0, s = 0, t = 0 , a = 0;
 		for(Feedback feedback: feedbacks)
 		{
+			
 			User user = feedback.getUser();
 			Principle principle = user.getPrinciple();
 			users.add(user);
 			//当前用户给出的可用性评价
-			double r = (principle.getExp()[0] - reliablity) * principle.getWeight()[0] * user.getTrust();
-			feedback.setReliablity(feedback.getReliablity() + r);
-			double s = (principle.getExp()[1] - sense) * principle.getWeight()[1] * user.getTrust();
-			feedback.setSense(feedback.getSense() + s);
-			double t = (principle.getExp()[2] - transform_ability) * principle.getWeight()[2] * user.getTrust();
-			feedback.setTransform_ability(feedback.getTransform_ability() + t);
-			double a = (principle.getExp()[3] - response) * principle.getWeight()[3] * user.getTrust();
-			feedback.setResponse(feedback.getResponse() + a);
+			 r += feedback.getReliablity() * user.getTrust();
+			 s += feedback.getSense() * user.getTrust();
+			 t += feedback.getTransform_ability() * user.getTrust();
+			 a += feedback.getResponse() * user.getTrust();
+			
 		}
+		
+		feedbackall.setReliablity((r / feedbacks.size() ));
+		feedbackall.setSense((s / feedbacks.size() )) ;
+		feedbackall.setTransform_ability((t / feedbacks.size() ));
+		feedbackall.setResponse((a / feedbacks.size() ));
 		
 	}
 
@@ -291,11 +423,21 @@ public class Service {
 	}
 
 	public void setInitial_capital(double initial_capital) {
-		this.initial_capital = initial_capital;
+		if (count == 0) {
+			firstvalue = initial_capital;
+			count++;
+		}
+		if (initial_capital < 500) {
+			this.initial_capital = 500;
+		}
+		else {
+			this.initial_capital = initial_capital;
+		}
+		
 	}
 
 	public double getUpdate_cost() {
-		return update_cost;
+		return (double)CurrentServicePropertyManager.getCostUpdateStragety().getStragetyValue();
 	}
 
 	public void setUpdate_cost(double update_cost) {
@@ -303,7 +445,6 @@ public class Service {
 	}
 	
 	
-
 	
 	
 	

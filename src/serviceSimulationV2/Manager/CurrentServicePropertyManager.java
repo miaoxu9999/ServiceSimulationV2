@@ -19,6 +19,9 @@ public class CurrentServicePropertyManager {
 	private static Stragety responseStragety;
 	private static Stragety transform_abilityStragety;
 	
+	//添加服务更新测略
+	private static Stragety CostUpdateStragety;
+	
 	public static Stragety getReputationStragety() {
 		return reputationStragety;
 	}
@@ -79,6 +82,13 @@ public class CurrentServicePropertyManager {
 	public static void setTransform_abilityStragety(Stragety transform_abilityStragety) {
 		CurrentServicePropertyManager.transform_abilityStragety = transform_abilityStragety;
 	}
+	public static Stragety getCostUpdateStragety() {
+		return CostUpdateStragety;
+	}
+	public static void setCostUpdateStragety(Stragety costUpdateStragety) {
+		CostUpdateStragety = costUpdateStragety;
+	}
+	
 	
 	
 	

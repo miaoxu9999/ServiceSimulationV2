@@ -33,6 +33,7 @@ public class RandomUserGenerator implements Generator<User>{
 		user = new User(demandStragety.getStragetyValue(), (ServiceChooseStragety) serviceChooseStragety, CurrentContext.getCurrentSpace(), CurrentContext.getCurrentGrid(),
 				(Principle)(CurrentUserManager.getPrincipleStragety().getStragetyValue()),
 				(double) (trustStragety.getStragetyValue()));
+		
 		try {
 			
 		} catch (Exception e) {

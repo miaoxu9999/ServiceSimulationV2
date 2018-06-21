@@ -12,6 +12,8 @@ public class CurrentServiceManager {
 	private static Stragety moveInStragety;
 	private static Stragety moveOutStragety;
 	private static ServiceGenerator serviceGenerator;
+	//Service 更新的下限
+	private static double reputationupdatecondition;
 	public static Stragety getMoveInStragety() {
 		return moveInStragety;
 	}
@@ -30,6 +32,14 @@ public class CurrentServiceManager {
 	public static void setServiceGenerator(ServiceGenerator serviceGenerator) {
 		CurrentServiceManager.serviceGenerator = serviceGenerator;
 	}
+	public static double getReputationupdatecondition() {
+		return 4;
+	}
+	public static void setReputationupdatecondition(double reputationupdatecondition) {
+		CurrentServiceManager.reputationupdatecondition = reputationupdatecondition;
+	}
+	
+	
 	
 	
 	

@@ -40,6 +40,7 @@ public class RandomServiceGenerator extends ServiceGenerator{
 				(double)senseStragety.getStragetyValue(),
 				(double)transform_abilityStragety.getStragetyValue(),
 				(double)responseStragety.getStragetyValue());
+		s.setInitial_capital(1000000);
 		
 		return s;
 	}

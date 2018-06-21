@@ -12,14 +12,21 @@ public class FixedPrincipleStragety implements Stragety<Principle>, PrincipleStr
 				{0.3, 0.2, 0.3, 0.2},
 				{0.4, 0.4, 0.1, 0.1},};
 	int[][] exp = {{9, 9, 9, 9}, //平均期望值高
+			{10, 8, 10, 8},
+			{10, 10, 10, 10},
+			{10, 9, 10, 9},
+			{10, 10, 10, 10},
 			//对1、3期望低
-			{6, 10, 8, 10},
+//			{6, 10, 8, 10}, 
+//			{9, 9, 9, 9},
 			//对1、3期望高
-			{10, 6, 10, 6},
+//			{10, 6, 10, 6},
+//			{10, 10, 10, 10},
 			
-			{2, 2, 2, 2},
+//			{2, 2, 2, 2},
 			//平均期望值低
-			{6, 6, 6, 6},};
+//			{6, 6, 6, 6},
+			};
 	private static int count;
 	@Override
 	public Principle getStragetyValue() {

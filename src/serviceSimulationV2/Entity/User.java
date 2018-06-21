@@ -100,18 +100,14 @@ public class User {
 				sense = (s.getSense() - this.principle.exp[1] +  s.getSense()) * this.principle.weight[1];
 				transform_ability = (s.getTransform_ability() - this.principle.exp[2]  + s.getTransform_ability()) * this.principle.weight[2];
 				response = (s.getResponse() - this.principle.exp[3] + s.getResponse()) * this.principle.weight[3];
-				Feedback feedback = new Feedback(this, RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), reliablity, sense, transform_ability, response);
-				s.addFeedback(feedback);
+				Feedback feedback = new Feedback(this, RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), 
+						reliablity / principle.weight[0], sense / principle.weight[1], transform_ability / principle.weight[2], response / principle.weight[3]);
 				double sum = reliablity + sense + transform_ability + response;
-				System.out.println(sum);
 				double reputation = (s.getReputation() * s.getFeedBackCount() + sum) / (s.getFeedBackCount() + 1);
-				if (reputation > 0) {
-					s.setReputation(reputation);
-				}
-				else
-				{
-					s.setReputation(0);
-				}
+				s.addFeedback(feedback);
+				reputation = Double.parseDouble(String.format("%.1f", reputation));
+				s.setReputation(reputation);
+				System.out.println(s.getId() + " " + s.getReputation());
 			}
 			
 		}
